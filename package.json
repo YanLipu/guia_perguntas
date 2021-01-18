@@ -1,0 +1,11 @@
+{
+  "name": "guiaperguntas",
+  "version": "1.0.0",
+  "description": "uma plataforma de perguntas e repostas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yan Lipu",
+  "license": "ISC"
+}
