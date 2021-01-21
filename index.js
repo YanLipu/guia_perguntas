@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const connection = require("./database/database");
 const Pergunta = require("./database/Pergunta");
+const Resposta = require("./database/Resposta");
 
 
 connection.authenticate().then(()=>{
@@ -28,7 +29,6 @@ app.get("/", (req, res)=>{
         res.render("index", {
             perguntas: perguntas
         });
-        console.log(perguntas)
     })
     
 });
@@ -49,13 +49,35 @@ app.post("/salvarpergunta", (req, res) =>{
     });
 });
 
+app.post("/responderpergunta", (req, res) =>{
+    var resposta = req.body.resposta;
+    var id = req.body.pergunta;
+
+    Resposta.create({
+        corpo: resposta,
+        perguntaId: id
+    }).then(()=>{
+        res.redirect("/pergunta/"+ id)
+    });
+});
+
 app.get("/pergunta/:id", (req, res) => {
     var id = req.params.id;
     Pergunta.findOne({
         where: {id: id}
     }).then(pergunta => {
         if(pergunta != undefined){
-            res.render("pergunta");
+
+            Resposta.findAll({
+                where: {perguntaId: pergunta.id}, raw: true, order: [
+                    ['id', 'DESC']]
+            } ).then(respostas => {
+                res.render("pergunta",{
+                    pergunta:pergunta,
+                    respostas: respostas
+                });
+            })
+            
         }else{
             res.redirect("/")
         }
