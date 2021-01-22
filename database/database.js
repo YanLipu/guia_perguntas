@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const connection = new Sequelize('guiapergunta', 'root', '1234', {
+const connection = new Sequelize('heroku_03e3a9202585b1f', 'b41a015bd4e70e', '8384b291', {
     host: 'localhost',
     dialect: 'mysql'
 });
