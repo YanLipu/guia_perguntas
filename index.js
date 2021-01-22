@@ -85,7 +85,7 @@ app.get("/pergunta/:id", (req, res) => {
 
 })
 
-app.listen(80,()=>{
+app.listen(8080,()=>{
     console.log("app rodando")
 });
 
